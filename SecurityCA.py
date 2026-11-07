@@ -3,7 +3,13 @@ from argon2 import PasswordHasher; #Hashs passwords
 from argon2.exceptions import VerifyMismatchError; #Matches the hash to the unhashed password
 # ^^ KEEP THIS!!! 
 
-# We might need a database for all of these passwords. Or a list? An array? Something that doesn't reset with every run of the program.
+# 5 use cases, 1 per member. A use case is defined as a 'structured description of how a system interacts with an external actor to achieve a specific goal, outlining both success and failure scenarios'.
+# List your use cases here.
+# Wiktoria: Password hashing. Does the program correctly identify correct/incorrect passwords when comparing them to their hashed counterparts? How do: 2 users. One will enter password correctly. One will not.
+# Lestat:
+# Sophie:
+# Olivier:
+# Yarick: 
 
 #Testing the imports
 ph = PasswordHasher()
