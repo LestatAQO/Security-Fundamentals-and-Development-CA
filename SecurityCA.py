@@ -8,7 +8,7 @@ from argon2.exceptions import VerifyMismatchError; #Matches the hash to the unha
 # Wiktoria: Password hashing. Does the program correctly identify correct/incorrect passwords when comparing them to their hashed counterparts? How do: 2 users. One will enter password correctly. One will not.
 # Lestat:
 # Sophie:
-# Olivier:
+# Olivier: Secure Email Client. 
 # Yarick: 
 
 #Testing the imports
