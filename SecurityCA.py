@@ -10,7 +10,7 @@ from Database import setting_db #Importing our database.
 # Wiktoria: Password hashing. Does the program correctly identify correct/incorrect passwords when comparing them to their hashed counterparts? How do: 2 users. One will enter password correctly. One will not.
 # Lestat:
 # Sophie:
-# Olivier: Secure Email Client. 
+# Olivier:
 # Yarick: 
 
 #Testing the imports
