@@ -19,6 +19,17 @@ def setting_db():
     connect.commit() #Saves the changes made-
     connect.close() #Closes connection to the server.
 
+def store_db(userName, email, password):
+     connect = sqlite3.connect("userData.db")
+     cursor = connect.cursor()
+
+     #insering the information in to the table.
+     cursor.execute(f"""
+        INSERT INTO userData(user_name, email, password)
+        VALUES ('{userName}','{email}','{password}')""")
+
+     connect.commit()
+     connect.close()
 
 #This fucntion is to compare the log in information and see if the user is registered.
 def login_validation(userName,password):
@@ -36,4 +47,15 @@ def login_validation(userName,password):
     valid = cursor.fetchone()
     connect.close()
 
+    #We check for the existence of the user
+    if valid is None:
+        return False
+    #We check for the stored password is the same as the password written by user. 
+    if valid[0] == password:
+        return True
+    else: 
+        return False
     
+    
+
+

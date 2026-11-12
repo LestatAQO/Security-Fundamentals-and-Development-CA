@@ -24,16 +24,3 @@ print(hashed)
 
 print("Password verification test: ", ph.verify(hashed, password)); #ph.verify checks if the hashed matches the unhashed. If yes, returns true. If not, return false.
 
-#Im going to write how you would connect and save the data in to the database, yous just need to put the variable names where I put the place holders-. 
-
-#Connecting to database and creating the object for the cursor.
-connect = sqlite3.connect("userData.db")
-cursor = connect.cursor()
-
-#insering the information in to the table. 
-cursor.execute(f"""
-    INSERT INTO userData(user_name, email, password)
-    VALUES ('{userName}','{email}','{password}')""")
-
-connect.commit()
-connect.close()
