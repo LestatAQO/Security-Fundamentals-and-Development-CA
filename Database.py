@@ -3,6 +3,7 @@
 #RESOURCE USED: https://www.geeksforgeeks.org/python/introduction-to-sqlite-in-python/
 import sqlite3
 
+#This function is to set the database.
 def setting_db():
     connect = sqlite3.connect("userData.db") #The connect manages the "communication" with the database that we created, also if the database file doesnt exist it will create it automatically.  
     cursor = connect.cursor() #The cursor is the object in charge of retriving query results and executing the statements. 
@@ -19,3 +20,20 @@ def setting_db():
     connect.close() #Closes connection to the server.
 
 
+#This fucntion is to compare the log in information and see if the user is registered.
+def login_validation(userName,password):
+    #Same as before we need to connect and a cursor.
+    connect = sqlite3.connect("userData.db") 
+    cursor = connect.cursor()
+
+    #We need this next part to search in the dabase, it will check if the password is in the database WHERE the user name exist.
+    cursor.execute(f"""
+        SELECT password FROM userData
+        WHERE user_name ='{userName}'
+        """)
+
+    #our getter for the validation
+    valid = cursor.fetchone()
+    connect.close()
+
+    

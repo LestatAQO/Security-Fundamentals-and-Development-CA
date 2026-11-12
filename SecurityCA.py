@@ -33,7 +33,7 @@ cursor = connect.cursor()
 #insering the information in to the table. 
 cursor.execute(f"""
     INSERT INTO userData(user_name, email, password)
-    VALUES ('{userName}','{email}','{TheHashedPasswordVariableImPrettySure}')""")
+    VALUES ('{userName}','{email}','{password}')""")
 
 connect.commit()
 connect.close()
