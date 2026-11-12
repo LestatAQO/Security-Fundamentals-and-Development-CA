@@ -1,6 +1,6 @@
 #Author: Wiktoria Socha
-#For the purpose of this exercise we decided to use the AES-256 encryption algorithm to encrypt and decrypt the data. The reason for this is that it is a symmetric encryption algorithm, which means that the same key is used for both encryption and decryption. This makes it faster and more efficient than asymmetric encryption algorithms, which use different keys for encryption and decryption.
-#Resources used: https://www.qpython.com/python-how-to-encrypt-and-decrypt-with-aes-4h1k/
+#For this exercise, we decided to use the AES-256 encryption algorithm to encrypt and decrypt the data. The reason for this is that it is a symmetric encryption algorithm, which means that the same key is used for both encryption and decryption. This makes it faster and more efficient than asymmetric encryption algorithms, which use different keys for encryption and decryption.
+#Resources used: https://stackpractices.com/recipes/python-encrypt-decrypt-aes/
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 import os
 import base64
@@ -9,9 +9,9 @@ import base64
 
 # Encryption function
 def encrypt_password(password, key):
-    nonce = os.urandom(12)  # Generate a random nonce
+    nonce = os.urandom(12)  # Generate a random nonce (string of random numbers)
     aesgcm = AESGCM(key) # Creates an AESGCM object using the encryption key provided to the function. This object will be used to perform the encryption operation.
-    encrypted = aesgcm.encrypt(nonce, password.encode(), None) # Converts the string password into bytes, and then encrypts it using the AESGCM object. The nonse makes sure that even if the password used multiple times, the encrypted output will always be unique. 'None' tells the program that we are not using any AAD (Additional Authenticated Data) here.
+    encrypted = aesgcm.encrypt(nonce, password.encode(), None) # Converts the string password into bytes, and then encrypts it using the AESGCM object. The nonce makes sure that even if the password is used multiple times, the encrypted output will always be unique. 'None' tells the program that we are not using any AAD (Additional Authenticated Data) here.
     combined = nonce + encrypted
     return base64.urlsafe_b64encode(combined).decode("ascii") # Combined is converted into base-64 encoded bytes. 'Decode' converts the bytes into a string, which is then returned by the function.
 
