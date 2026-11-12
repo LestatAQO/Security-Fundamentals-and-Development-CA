@@ -11,7 +11,7 @@ import base64
 def encrypt_password(password, key):
     nonce = os.urandom(12)  # Generate a random nonce
     aesgcm = AESGCM(key) # Creates an AESGCM object using the encryption key provided to the function. This object will be used to perform the encryption operation.
-    encrypted = aes.encrypt(nonce, password.encode(), None) # Converts the string password into bytes, and then encrypts it using the AESGCM object. The nonse makes sure that even if the password used multiple times, the encrypted output will always be unique. 'None' tells the program that we are not using any AAD (Additional Authenticated Data) here.
+    encrypted = aesgcm.encrypt(nonce, password.encode(), None) # Converts the string password into bytes, and then encrypts it using the AESGCM object. The nonse makes sure that even if the password used multiple times, the encrypted output will always be unique. 'None' tells the program that we are not using any AAD (Additional Authenticated Data) here.
     combined = nonce + encrypted
     return base64.urlsafe_b64encode(combined).decode("ascii") # Combined is converted into base-64 encoded bytes. 'Decode' converts the bytes into a string, which is then returned by the function.
 
@@ -21,7 +21,7 @@ def encrypt_password(password, key):
 def decrypt_password(encrypted_password, key):
     combined = base64.urlsafe_b64decode(encrypted_password) # Converting the base64 string back into its original bytes
     nonce = combined[:12] # Takes the first 12 bytes
-    encrypted = combined[:12] # Takes everything from position 12 onwards
+    encrypted = combined[12:] # Takes everything from position 12 onwards
     aes = AESGCM(key)
     decrypted = aes.decrypt(nonce, encrypted, None)
     return decrypted.decode() # Returns the decoded password if everything is correct
