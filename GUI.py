@@ -25,10 +25,7 @@ class PasswordManager:
         frame = tk.Frame(self.root, bg="white", padx=50, pady=50)
         frame.place(relx=0.5, rely=0.5, anchor="center")
 
-        tk.Label(
-            frame, text="Password manager",
-            font=("Arial", 24), bg="white"
-        ).pack(pady=15)
+        tk.Label(frame, text="Password manager", font=("Arial", 24), bg="white").pack(pady=15)
 
         tk.Label(frame, text="Username", bg="white").pack(anchor="w")
         self.username = tk.Entry(frame, width=35, font=("Arial", 12))
@@ -37,6 +34,8 @@ class PasswordManager:
         tk.Label(frame, text="Password", bg="white").pack(anchor="w")
         self.password = tk.Entry(frame, width=35, font=("Arial", 12), show="*")
         self.password.pack(pady=8)
+
+        tk.Button(frame, text="Login", font=("Arial", 12), width=5).pack(pady=15)
 
 root = tk.Tk()
 app = PasswordManager(root)
