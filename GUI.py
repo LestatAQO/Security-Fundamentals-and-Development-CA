@@ -40,6 +40,12 @@ class PasswordManager:
     
     def displayPasswords(self):#create window for displaying passwords
         self.clearScreen()
+        frame = tk.Frame(self.root, bg="white", padx=50, pady=50)
+        frame.place(relx=0.5, rely=0.5, anchor="center")
+
+        tk.Label(frame, text="Password manager", font=("Arial", 24), bg="white").pack(pady=15)
+
+        tk.Button(frame, text="Add", font=("Arial", 12), width=5, command=self.addPassword).pack(pady=15)
 
     def attemptLogin(self):#authenticate login credentials
         if self.failedAttempts >= 3:#if failed attempts is greater than or equal to 3, show error message
@@ -69,7 +75,39 @@ class PasswordManager:
     def showError(self, message):#show error message from manager.py
         messagebox.showerror("Error", message)
 
+    def addPassword(self):
+        self.clearScreen()
 
+        frame = tk.Frame(self.root, bg="white", padx=50, pady=50)
+        frame.place(relx=0.5, rely=0.5, anchor="center")
+
+        tk.Label(frame, text="Add Password", font=("Arial", 24), bg="white").pack(pady=15)
+
+        tk.Label(frame, text="Username", bg="white").pack(anchor="w")
+        self.username = tk.Entry(frame, width=35, font=("Arial", 12))
+        self.username.pack(pady=8)
+
+        tk.Label(frame, text="Password", bg="white").pack(anchor="w")
+        self.password = tk.Entry(frame, width=35, font=("Arial", 12))#no need to obfuscate password here as user has to be logged in to add a password anyway so we can confirm its them adding the password and not someone else also if we obfuscate the password it may lead to a typo
+        self.password.pack(pady=8)
+
+        tk.Label(frame, text="Website", bg="white").pack(anchor="w")
+        self.website = tk.Entry(frame, width=35, font=("Arial", 12))
+        self.website.pack(pady=8)
+
+        tk.Button(frame, text="Add", font=("Arial", 12), width=5, command=self.attemptAddPassword).pack(pady=15)
+
+    def attemptAddPassword(self):
+        username = self.username.get()#get username, password and website from entry fields
+        password = self.password.get()
+        website = self.website.get()
+
+        message, success = Manager.addPassword(username, password, website)
+        if success:
+            self.displayPasswords()#display passwords if add password is successful
+        else:
+            self.showError(message)#else show error message from manager.py
+        
 root = tk.Tk()
 app = PasswordManager(root)
 root.mainloop()
