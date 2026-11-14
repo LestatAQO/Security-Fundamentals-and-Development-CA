@@ -6,6 +6,7 @@ import Database, Encryption
 
 maxDuration = 300
 sessionTime = None
+key = Encryption.load_key()
 
 # This file will not work until the database has been created first
 
@@ -15,12 +16,12 @@ def registration(userName, password):
     if not userName or not password:
         return "Password/Username cannot be an empty field", False
     
-    checker = Database.login_validation(userName, password)
+    checker = Database.login_validation(userName, password, key)
 
     if checker is True:
         return "Account with this username already exists", False
 
-    Database.store_db(userName, "adminWeb", "an encrypted password")
+    Database.store_db(userName, "adminWeb", "an encrypted password", key)
     return "Account created", True
 
 
@@ -31,7 +32,7 @@ def login(userName, password):
     if not userName or not password:
         return "Password/Username cannot be an empty field", False
     
-    checker = Database.login_validation(userName, password)
+    checker = Database.login_validation(userName, password, key)
 
     if checker is False:
         return "Invalid password or username. If you don't have an account, would you like to register?", False
