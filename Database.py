@@ -80,34 +80,6 @@ def login_validation(userName,password):
     except:
         return False
 
-# TEST function
-def login_validation_TEST(userName,password,key):
-    #Same as before we need to connect and a cursor.
-    connect = sqlite3.connect("userData.db") 
-    cursor = connect.cursor()
-
-    #We need this next part to search in the dabase, it will check if the password is in the database WHERE the user name exist.
-    cursor.execute("""
-        SELECT password FROM userData
-        WHERE user_name = ?
-        """, (userName,)) #Reference: https://docs.python.org/3/library/sqlite3.html
-    #Reference: https://stackoverflow.com/questions/59547851/why-is-there-a-comma-after-the-variable-in-this-sqlite-query
-    #When the data is only one parameter we need to add that extra coma so it doesnt devide our strings in to multiple parameters making it understand that is a tuple.
-
-    #our getter for the validation
-    valid = cursor.fetchone()
-    connect.close()
-
-    if valid is None:
-        return False
-
-    #We check for the existence of the user
-    decrypted_password = Encryption.decrypt_password(valid[0], key)
-    if decrypted_password == password:
-        return True
-    else:
-        return False
-
 #below was added by Olivier Nowak
 def getPasswords():
     connect = sqlite3.connect("userData.db")#getting the passwords from the database
