@@ -18,6 +18,8 @@ def registration(userName, password):
     Database.setting_db() # Calls the function to create the new database for the new account
     if not userName or not password:
         return "Password/Username cannot be an empty field", False
+    elif len(userName) < 5 or len(password) < 5:
+        return "Password/Username has to be a minimum of 5 characters", False
     
     checker = Database.login_validation(userName, password)
     if checker is True:
