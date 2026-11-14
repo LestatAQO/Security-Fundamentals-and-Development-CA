@@ -8,6 +8,11 @@ import base64
 # 'username' is a placeholder for the hard-coded username we will use. Feel free to modify this code to ensure the username variable matches the hard-coded username we will use.
 #add_data = username.encode()
 
+# Retrieve the key from the file
+def load_key():
+    with open("secret.key", "rb") as key_file:
+        return key_file.read()
+
 #The passwords saved in the database will be encrypted here. 
 
 # Encryption function

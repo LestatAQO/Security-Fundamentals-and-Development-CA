@@ -2,6 +2,8 @@
 #For the porpuse of this exercise we decided to save data on a database on sqlite for the ease of set up and the ease of sharing to other users so they can use the app with the database on their own devices more easily thanks to not needing a server. 
 #RESOURCE USED: https://www.geeksforgeeks.org/python/introduction-to-sqlite-in-python/
 import sqlite3
+import Encryption
+key = Encryption.load_key()
 
 #This function is to set the database.
 def setting_db():
@@ -19,21 +21,22 @@ def setting_db():
     connect.commit() #Saves the changes made-
     connect.close() #Closes connection to the server.
 
-def store_db(userName, website, password):
+def store_db(userName, website, password, key):
      connect = sqlite3.connect("userData.db")
      cursor = connect.cursor()
+     encrypted_password = Encryption.encrypt_password(password, key) #We encrypt the password before storing it in the database.
 
      #insering the information in to the table.
      cursor.execute("""
         INSERT INTO userData(user_name, website, password)
-        VALUES (?,?,?)""",(userName, website, password)) #Reference:https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html
+        VALUES (?,?,?)""",(userName, website, encrypted_password)) #Reference:https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html
         #I was Reading about weaknesses that a database can have and I found out that we where weak against SQL injection, I found how to reinforce that weakness, by putting the "?" as a placeholder we avoid that the attackers could send queries directly with malisious code that would then be executed on our database. I(Previously I used F strings and the parameters where part of the query.)
 
      connect.commit()
      connect.close()
 
 #This fucntion is to compare the log in information and see if the user is registered.
-def login_validation(userName,password):
+def login_validation(userName,password,key):
     #Same as before we need to connect and a cursor.
     connect = sqlite3.connect("userData.db") 
     cursor = connect.cursor()
@@ -50,15 +53,12 @@ def login_validation(userName,password):
     valid = cursor.fetchone()
     connect.close()
 
-    #We check for the existence of the user
     if valid is None:
         return False
-    #We check for the stored password is the same as the password written by user. 
-    if valid[0] == password:
+
+    #We check for the existence of the user
+    decrypted_password = Encryption.decrypt_password(valid[0], key)
+    if decrypted_password == password:
         return True
-    else: 
+    else:
         return False
-    
-    
-
-
