@@ -1,5 +1,5 @@
 # Author: Yaroslav Kondaurov
-# Description: Handles verifications with database and takes input from the GUI
+# Description: Handles verifications with database, takes input from the GUI and tracks session timer
 
 import time
 import Database, Encryption
@@ -12,23 +12,28 @@ sessionTime = None
 # Handling first time registration with the application
 def registration(userName, password):
     if userName is None or password is None:
-        print("Password/Username cannot be an empty field")
-        return False
-    return
+        return "Password/Username cannot be an empty field", False
+    checker = Database.login_validation(userName, password)
+
+    if checker is True:
+        return "Account with this username already exists", False
+    return "Account created", True
+
 
 # Handling login information
 def login(userName, password):
-    checker = Database.login_validation(userName, password)
-    if checker is False:
-        print("Invalid password or username. If you don't have an account, would you like to register?")
-    elif checker is True:
-        global sessionTime 
-        sessionTime = time.time()
-        print("Login successful")
+    global sessionTime
 
-    # Testing
-    print("Username: " + userName)
-    print("Password: " + password)
+    if not userName or not password:
+        return "Password/Username cannot be an empty field", False
+    
+    checker = Database.login_validation(userName, password)
+
+    if checker is False:
+        return "Invalid password or username. If you don't have an account, would you like to register?", False
+    else:
+        sessionTime = time.time()
+        return "Login successful", True
 
 # WIP
 # Handling session time to log out users after a period of inactivity

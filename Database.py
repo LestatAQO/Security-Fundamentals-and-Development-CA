@@ -12,21 +12,21 @@ def setting_db():
             CREATE TABLE IF NOT EXISTS userData(
             user_id INTEGER PRIMARY KEY,
             user_name TEXT NOT NULL,
-            email TEXT NOT NULL,
+            website TEXT NOT NULL,
             password TEXT NOT NULL 
             )""") #SQLite doesnt need autoincrement. When the primary key is an integer it automatically is set to auto increment.
 
     connect.commit() #Saves the changes made-
     connect.close() #Closes connection to the server.
 
-def store_db(userName, email, password):
+def store_db(userName, website, password):
      connect = sqlite3.connect("userData.db")
      cursor = connect.cursor()
 
      #insering the information in to the table.
      cursor.execute("""
-        INSERT INTO userData(user_name, email, password)
-        VALUES (?,?,?)""",(userName, email, password)) #Reference:https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html
+        INSERT INTO userData(user_name, website, password)
+        VALUES (?,?,?)""",(userName, website, password)) #Reference:https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html
         #I was Reading about weaknesses that a database can have and I found out that we where weak against SQL injection, I found how to reinforce that weakness, by putting the "?" as a placeholder we avoid that the attackers could send queries directly with malisious code that would then be executed on our database. I(Previously I used F strings and the parameters where part of the query.)
 
      connect.commit()
