@@ -13,7 +13,7 @@ class PasswordManager:
         self.root.configure(bg="#9dbdec")
         #db connection to be added here
         self.loginScreen() #start on login screen for now, change to main menu later
-
+        self.failedAttempts = 0
 
     def clearScreen(self):#clear screen
         for widget in self.root.winfo_children():
@@ -42,6 +42,9 @@ class PasswordManager:
         self.clearScreen()
 
     def attemptLogin(self):#authenticate login credentials
+        if self.failedAttempts >= 3:#if failed attempts is greater than or equal to 3, show error message
+            self.showError("Too many failed attempts. Please try again later.")#this serves to lockout the user after 3 failed attempts to prevent brute force attacks
+            return
         username = self.username.get()#get username and password from entry fields
         password = self.password.get()
 
@@ -50,6 +53,7 @@ class PasswordManager:
             self.displayPasswords()#display passwords if login is successful
         else:
             self.showError(message)#else show error message from manager.py
+            self.failedAttempts += 1
 
 
     def attemptRegistration(self):#authenticate registration credentials
