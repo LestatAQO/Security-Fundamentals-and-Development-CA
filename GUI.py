@@ -18,7 +18,6 @@ class PasswordManager:
         for widget in self.root.winfo_children():
             widget.destroy()
 
-
     def loginScreen(self):#create window for login screen
         self.clearScreen()
 
@@ -35,7 +34,26 @@ class PasswordManager:
         self.password = tk.Entry(frame, width=35, font=("Arial", 12), show="*")
         self.password.pack(pady=8)
 
-        tk.Button(frame, text="Login", font=("Arial", 12), width=5).pack(pady=15)
+        tk.Button(frame, text="Login", font=("Arial", 12), width=5, command=self.attemptLogin).pack(pady=15)
+        tk.Button(frame, text="Register", font=("Arial", 12), width=8, command=self.attemptRegistration).pack(pady=15)
+    
+    def displayPasswords(self):#create window for displaying passwords
+        self.clearScreen()
+
+    def attemptLogin(self):#authenticate login credentials
+        username = self.username.get()#get username and password from entry fields
+        password = self.password.get()
+
+        from Manager import login#login function from manager.py
+        login(username, password)
+
+    def attemptRegistration(self):#authenticate registration credentials
+        username = self.username.get()#get username and password from entry fields
+        password = self.password.get()
+
+        from Manager import registration#registration function from manager.py
+        registration(username, password)
+
 
 root = tk.Tk()
 app = PasswordManager(root)
