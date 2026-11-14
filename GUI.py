@@ -45,14 +45,25 @@ class PasswordManager:
         username = self.username.get()#get username and password from entry fields
         password = self.password.get()
 
-        Manager.login(username, password)#login function from manager.py
+        message, success = Manager.login(username, password)#login function from manager.py
+        if success:
+            self.displayPasswords()#display passwords if login is successful
+        else:
+            self.showError(message)#else show error message from manager.py
 
 
     def attemptRegistration(self):#authenticate registration credentials
         username = self.username.get()#get username and password from entry fields
         password = self.password.get()
 
-        Manager.registration(username, password)#registration function from manager.py
+        message, success = Manager.registration(username, password)#registration function from manager.py
+        if success:
+            messagebox.showinfo("Success", message)
+        else:
+            self.showError(message)
+
+    def showError(self, message):#show error message from manager.py
+        messagebox.showerror("Error", message)
 
 
 root = tk.Tk()
