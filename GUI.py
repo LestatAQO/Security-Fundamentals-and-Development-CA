@@ -1,6 +1,7 @@
 #Author Olivier Nowak
 
 import tkinter as tk
+import Manager
 from tkinter import ttk, messagebox #GUI import
 
 class PasswordManager:
@@ -44,15 +45,14 @@ class PasswordManager:
         username = self.username.get()#get username and password from entry fields
         password = self.password.get()
 
-        from Manager import login#login function from manager.py
-        login(username, password)
+        Manager.login(username, password)#login function from manager.py
+
 
     def attemptRegistration(self):#authenticate registration credentials
         username = self.username.get()#get username and password from entry fields
         password = self.password.get()
 
-        from Manager import registration#registration function from manager.py
-        registration(username, password)
+        Manager.registration(username, password)#registration function from manager.py
 
 
 root = tk.Tk()
