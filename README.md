@@ -31,6 +31,6 @@ To run this repository on your own device, follow these simple steps!
   1. Open the repository's main page. You should see a bright _green_ button, labelled 'code'. Click it, and you will open a drop-down menu. Check the bottom of the dropdown menu. You should see the option 'Download ZIP'. Click it, and wait for it to download.
   2. Once it's downloaded, locate the ZIP in your file manager and extract the files.
   3. Open Visual Studio Code (VSC). To open the folder, you have two options. You can either drag and drop the folder from your file manager into VSC, _or_ you can use the command _Ctrl+O_ to open your file manager and select the folder.
-  4. Click 'Run', and you should have our password manager running!
+  4. Run generate_key.py. You **must** run this file before you run the GUI. Otherwise, the project will not start at all. If you have done this, the project should be working!
 
 If you're struggling to run the program, feel free to leave a comment! One of us will happily lend a hand.
