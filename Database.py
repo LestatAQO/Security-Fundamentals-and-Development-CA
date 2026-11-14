@@ -107,3 +107,19 @@ def login_validation_TEST(userName,password,key):
         return True
     else:
         return False
+
+def getPasswords():
+    connect = sqlite3.connect("userData.db")
+    cursor = connect.cursor()
+    cursor.execute("SELECT user_id, website, user_name, password FROM userData")
+    rows = cursor.fetchall()
+    connect.close()
+
+    result = []
+    for user_id, website, user_name, encrypted in rows:
+        try:
+            decrypted = Encryption.decrypt_password(encrypted, key)
+        except Exception:
+            continue  # login rows (argon2 hashes) can't be decrypted, skip them
+        result.append((user_id, website, user_name, decrypted))
+    return result

@@ -45,7 +45,23 @@ class PasswordManager:
 
         tk.Label(frame, text="Password manager", font=("Arial", 24), bg="white").pack(pady=15)
 
-        tk.Button(frame, text="Add", font=("Arial", 12), width=5, command=self.addPassword).pack(pady=15)
+        columns = ("website", "username", "password")
+        tree = ttk.Treeview(frame, columns=columns, show="headings", height=15)
+        for col in columns:
+            tree.heading(col, text=col.capitalize())
+            tree.column(col, width=250)
+
+        scrollbar = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
+        tree.configure(yscrollcommand=scrollbar.set)
+        tree.pack(side="left", pady=10)
+        scrollbar.pack(side="left", fill="y", pady=10)
+
+        for user_id, website, username, password in Manager.getPasswords():
+            if isinstance(password, bytes):
+                password = password.decode()
+            tree.insert("", "end", iid=user_id, values=(website, username, password))
+
+        tk.Button(self.root, text="Add", font=("Arial", 12), width=5, command=self.addPassword).place(relx=0.5, rely=0.92, anchor="center")
 
     def attemptLogin(self):#authenticate login credentials
         if self.failedAttempts >= 3:#if failed attempts is greater than or equal to 3, show error message

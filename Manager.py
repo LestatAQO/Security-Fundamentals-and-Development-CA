@@ -72,3 +72,6 @@ def checkSession():
 def resetSession():
     global sessionTime
     sessionTime = time.time()
+
+def getPasswords():
+    return Database.getPasswords()
