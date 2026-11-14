@@ -19,18 +19,22 @@ This repository was created to store the **Password Manager Application** create
 The project was coded using Python, utilising the large number of extensions offered to ensure our application met our vision as closely as it could.
 
 ## What do I need to run this repository?
-To ensure an easy and accessible experience, we recommend that you have the following programs/applications installed:
+To ensure an easy and accessible experience, we recommend that you have the following programs/applications/packages installed:
   - <a href="https://code.visualstudio.com/">Visual Studio Code</a>
   - <a href="https://www.python.org/downloads/">Python (Latest version)</a>
+  - Argon2 Python Package: Install with 'pip install Argon2' in the terminal
+  - Cryptography Python Package: Install with 'pip install Cryptography' in the terminal
 
     You may need to select a Python interpreter in Visual Studio Code, as on some Windows systems Python will be blocked. Don't worry! This is an easy fix. Simply click _Ctrl + Shift + P_, and locate your installed Python program. It should be under the 'AppData' path. Otherwise, flick between your options until you find the one that works!
 
 ## How do I run this repository?
 To run this repository on your own device, follow these simple steps!
 
-  1. Open the repository's main page. You should see a bright _green_ button, labelled 'code'. Click it, and you will open a drop-down menu. Check the bottom of the dropdown menu. You should see the option 'Download ZIP'. Click it, and wait for it to download.
+  1. Open the repository's main page. You should see a bright _green_ button, labelled 'code'. Click it, and you will open a drop-down menu. Check the bottom of the drop-down menu. You should see the option 'Download ZIP'. Click it, and wait for it to download.
   2. Once it's downloaded, locate the ZIP in your file manager and extract the files.
   3. Open Visual Studio Code (VSC). To open the folder, you have two options. You can either drag and drop the folder from your file manager into VSC, _or_ you can use the command _Ctrl+O_ to open your file manager and select the folder.
-  4. Run generate_key.py. You **must** run this file before you run the GUI. Otherwise, the project will not start at all. If you have done this, the project should be working!
+  4. Run generate_key.py. You **must** run this file before you run the GUI. Otherwise, the project will not start at all.
+  5. Ensure you have the necessary packages. VSC will tell you if it can't find a module with a yellow underline. See our recommended installations for the commands to install them!
+  6. If you have done these steps, the project should be working!
 
 If you're struggling to run the program, feel free to leave a comment! One of us will happily lend a hand.
