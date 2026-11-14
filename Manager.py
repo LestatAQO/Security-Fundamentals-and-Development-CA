@@ -7,7 +7,7 @@ import Database, Encryption # Importing Database and Encryption files to call fu
 from argon2 import PasswordHasher
 
 # Session timer variables
-maxDuration = 60 # How long in seconds, an active session lasts
+maxDuration = 180 # How long in seconds, an active session lasts
 sessionTime = None
 
 ph = PasswordHasher()
@@ -70,6 +70,7 @@ def addPassword(userName, website, password):
     Database.store_password_db(userName, website, password, key)
     return "Details added", True
 
+# Run the getPasswords function from database to return data back to the GUI
 def getPasswords():
     return Database.getPasswords()
 
