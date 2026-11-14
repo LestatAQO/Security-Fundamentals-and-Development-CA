@@ -12,7 +12,7 @@ sessionTime = None
 # Handling first time registration with the application
 def registration(userName, password):
     Database.setting_db() # Calls the function to create the new database for the new account
-    if userName is None or password is None:
+    if not userName or not password:
         return "Password/Username cannot be an empty field", False
     
     checker = Database.login_validation(userName, password)
